@@ -1,84 +1,131 @@
+/* Randomizing computer selection of rock, paper, scissors */
 function getComputerChoice() {
     let randomNumber = Math.floor(Math.random() * 3);
     switch(randomNumber) {
         case 0:
-            return 'ROCK';
+            return 'Rock';
             break;
         case 1:
-            return 'PAPER';
+            return 'Paper';
             break;
         case 2:
-            return 'SCISSORS';
+            return 'Scissors';
             break;
     }
 }
 
-function playRound (playerUpperCase, computerSelection, playerSelection) {   
-    if (playerUpperCase === computerSelection) {
-        console.log('Oops, you two think alike. That\'s a tie.')
-        return 'tie'
-    } else if (        
-        (playerUpperCase === 'ROCK' && computerSelection === 'PAPER') ||
-        (playerUpperCase === 'PAPER' && computerSelection === 'SCISSORS') ||
-        (playerUpperCase === 'SCISSORS' && computerSelection === 'ROCK')
-    ) {
-        console.log(`You Lose! ${computerSelection} beats ${playerSelection}.`)
-        return 'lose'
+/* Return tie, lose, win depending on player and computer selections */
+function playRound (computerSelection, playerSelection) {
+    if (computerSelection === playerSelection) {
+        console.log('tie')
+        return 'tie';
     } else if (
-        (playerUpperCase === 'ROCK' && computerSelection === 'SCISSORS') ||
-        (playerUpperCase === 'PAPER' && computerSelection === 'ROCK') ||
-        (playerUpperCase === 'SCISSORS' && computerSelection === 'PAPER')
+        (playerSelection === 'Rock' && computerSelection === 'Paper') ||
+        (playerSelection === 'Paper' && computerSelection === 'Scissors') ||
+        (playerSelection === 'Scissors' && computerSelection === 'Rock')
     ) {
-        console.log(`You Win! ${playerSelection} beats ${computerSelection}.`)
-        return 'win'
-    } else {
-        console.log('You need to choose between rock, paper, or scissors, you silly goose ;P')
-        return 'nope'
+        console.log('lose')
+        return 'lose';
+    } else if (
+        (playerSelection === 'Rock' && computerSelection === 'Scissors') ||
+        (playerSelection === 'Paper' && computerSelection === 'Rock') ||
+        (playerSelection === 'Scissors' && computerSelection === 'Paper')
+    ) {
+        console.log('win')
+        return 'win';
     }
 }
 
-console.log(game());
+/* Text function based on tie, win, lose, and points */
+function textContent(result, playerSelection, computerSelection, computer, player) {
+    /* Text display elements */
+    const old = document.querySelector('#container');
+    const holder = document.createElement('div');
+    const content = document.createElement('p');
+    const computerPoints = document.createElement ('p');
+    const playerPoints = document.createElement ('p');
+    
+    switch (result) {
+        case 'win':
+            computerPoints.textContent = 'Computer: ' + computer;
+            playerPoints.textContent = 'Player: ' + player;
+            content.textContent = `You Win! ${playerSelection} beats ${computerSelection.toLowerCase()}.`;
+            break
+        case 'lose':
+            computerPoints.textContent = 'Computer: ' + computer;
+            playerPoints.textContent = 'Player: ' + player;
+            content.textContent = `You Lose! ${computerSelection} beats ${playerSelection.toLowerCase()}.`;
+            break
+        case 'tie':
+            computerPoints.textContent = 'Computer: ' + computer;
+            playerPoints.textContent = 'Player: ' + player;
+            content.textContent = 'Oops, you two think alike. That\'s a tie.';
+            break
+    }
+    
+    holder.append(content, computerPoints, playerPoints);
+    old.replaceChild('div', holder);
+}
 
+/* Text when player or computer reach 5 points */
+function endGameText(computer, player) {
+    const old = document.querySelector('#container');
+    const holder = document.createElement('div');
+    const computerPoints = document.createElement ('p');
+    const playerPoints = document.createElement ('p');
 
-function game() {    
+    if (computer === 5) {
+        computerPoints.textContent = 'Computer: ' + computer;
+        playerPoints.textContent = 'Player: ' + player;
+        content.textContent = 'Nice try! Guess you can\'t beat the machine.'
+    } else if (player === 5) {
+        computerPoints.textContent = 'Computer: ' + computer;
+        playerPoints.textContent = 'Player: ' + player;
+        content.textContent = 'Wow, I\'m impressed! With that luck you should play the lotto.'
+    }
+
+    holder.append(computerPoints, playerPoints);
+    old.replaceChild('div', holder);
+}
+
+/* Full game (5 rounds) */
+function game() {
+
+    const computerSelection = getComputerChoice(); 
     let computer = 0;
     let player = 0;
-    let tie = 'tie';
-    let win = 'win';
-    let lose = 'lose';
-    let nope = 'nope';
 
     do {
-        let playerSelection = prompt('Which will it be? Rock, paper, or scissors?');
-        let playerUpperCase = playerSelection.toUpperCase();
-        const computerSelection = getComputerChoice();
-        let result = playRound(playerUpperCase, computerSelection, playerSelection);
+        let result = playRound(computerSelection, playerSelection);
 
         switch (result) {
-            case tie:
-                console.log('Computer: ' + computer)
-                console.log('Player: ' + player)
+            case 'tie':
+                textContent();
                 continue
-            case nope:
-                console.log('Computer: ' + computer)
-                console.log('Player: ' + player)
-                continue
-            case win:
+            case 'win':
                 player++
-                console.log('Computer: ' + computer)
-                console.log('Player: ' + player)
+                textContent();
                 continue
-            case lose:
+            case 'lose':
                 computer++
-                console.log('Computer: ' + computer)
-                console.log('Player: ' + player)
+                textContent();
                 continue
         }
     } while (computer !== 5 && player !== 5);
+
         
-    if (computer === 5) {
-            return 'Nice try! Guess you can\'t beat the machine.'
-        } else if (player === 5) {
-            return 'Wow, I\'m impressed! With that luck you should play the lotto.'
-        }
+    if (computer === 5 || player === 5) {
+        endGameText();
+    }
 }
+
+/* Returning player selection */
+let choiceBtn = document.querySelectorAll('#btn');
+let playerSelection;
+
+choiceBtn.forEach((choice) => {
+    choice.addEventListener('click', () => {
+    playerSelection = choice.value;
+    game(playerSelection)
+    })
+})
