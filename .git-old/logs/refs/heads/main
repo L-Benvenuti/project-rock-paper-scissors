@@ -1,7 +1,0 @@
-0000000000000000000000000000000000000000 e42731522b1a82cf0eab148bde76eb969be9ac94 HBL <115602697+L-Benvenuti@users.noreply.github.com> 1674771646 -0600	clone: from github.com:L-Benvenuti/project-rock-paper-scissors.git
-e42731522b1a82cf0eab148bde76eb969be9ac94 ba623650b2801508b4fab01662369ef3f2838076 HBL <115602697+L-Benvenuti@users.noreply.github.com> 1674832799 -0600	commit: first commit, edit README.md
-ba623650b2801508b4fab01662369ef3f2838076 0a582b43697bcbbd09e1bdb833f811077881184e HBL <115602697+L-Benvenuti@users.noreply.github.com> 1674833046 -0600	commit: edit index.html: boilerplate
-0a582b43697bcbbd09e1bdb833f811077881184e 4152ce972498a947fc79553f0f9b2bd1b8f8e685 HBL <115602697+L-Benvenuti@users.noreply.github.com> 1674834041 -0600	commit: edit script.js: computer random selection rock, paper, scissors
-4152ce972498a947fc79553f0f9b2bd1b8f8e685 7d85912f0bfacd1d8bf876f8456f00f15baa31b5 HBL <115602697+L-Benvenuti@users.noreply.github.com> 1674835007 -0600	commit: edit script.js: player selection prompt
-7d85912f0bfacd1d8bf876f8456f00f15baa31b5 c21d480baf27fcf32ef6f564bbde27fed2861f22 HBL <115602697+L-Benvenuti@users.noreply.github.com> 1674853440 -0600	commit: edit script.js: add playRound function
-c21d480baf27fcf32ef6f564bbde27fed2861f22 ffe2d3db80eefb911cb4033377ab185b146b512e HBL <115602697+L-Benvenuti@users.noreply.github.com> 1674859399 -0600	commit: edit script.js: add game funtion + fix: global/local variables
